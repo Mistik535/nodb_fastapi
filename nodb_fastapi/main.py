@@ -17,4 +17,4 @@ class Status(BaseModel):
 @app.get(settings.main_url)
 async def status():
     """ Status endpoint """
-    return Status()
+    return Status(status=settings.main_url)

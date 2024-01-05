@@ -4,7 +4,12 @@
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from .settings import settings
+import uvicorn
+
+try:
+    from settings import settings
+except ImportError:
+    from .settings import settings
 
 app = FastAPI()
 
@@ -18,3 +23,14 @@ class Status(BaseModel):
 async def status():
     """ Status endpoint """
     return Status()
+
+
+def main():
+    """
+    Точка входа в приложение
+    """
+    uvicorn.run(app, host="0.0.0.0", port=8080)
+
+
+if __name__ == '__main__':
+    main()

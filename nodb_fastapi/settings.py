@@ -2,16 +2,18 @@
     Settings
 """
 
-from pydantic_settings import BaseSettings
+from pathlib import Path
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     """ Settings class """
-    main_url: str
+    main_url: str = ""
 
-    def __init__(self, main_url):
-        super().__init__()
-        self.main_url = main_url
+    model_config = SettingsConfigDict(
+        # ищем файл .env в директории /src/
+        env_file=f"{Path(__file__).resolve().parent}/.env"
+    )
 
 
-settings = Settings("google.com")
+settings = Settings()
